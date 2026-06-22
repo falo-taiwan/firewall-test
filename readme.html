@@ -1,0 +1,245 @@
+<!-- 
+  ==========================================================================
+  FALO Enterprise Deployment Assessor Copyright (c) 2026 Falo x Force Cheng.
+  All rights reserved.
+  Release Date: 2026/06/22
+  This system contains multi-layer invisible watermarks to prevent plagiarism.
+  ==========================================================================
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>說明手冊 - FALO Enterprise Deployment Assessor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #2b4c6f;
+      --secondary-color: #4a6b82;
+      --background-base: #f3f6f8;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --text-main: #273746;
+      --text-muted: #64748b;
+      --border-color: rgba(203, 213, 225, 0.6);
+      --transition-fast: 0.25s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--background-base);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* 水彩背景 */
+    .watercolor-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -10;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .watercolor-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      mix-blend-mode: multiply;
+    }
+    .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #cfe2ff 0%, #e2eafc 100%); }
+    .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #e0f2fe 0%, #bae6fd 100%); }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+      transition: color var(--transition-fast);
+    }
+    .btn-back:hover {
+      color: var(--primary-color);
+    }
+    .btn-back svg {
+      width: 16px; height: 16px;
+      stroke-width: 2.2px;
+    }
+
+    .doc-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      color: var(--primary-color);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    header .subtitle {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      margin-top: 0.25rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin: 1.5rem 0 0.75rem 0;
+      border-left: 4px solid var(--secondary-color);
+      padding-left: 0.6rem;
+      font-weight: 800;
+    }
+
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    ul, ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.25rem;
+    }
+    li {
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+    }
+    li strong {
+      color: var(--primary-color);
+    }
+
+    code {
+      font-family: monospace;
+      background: rgba(226, 232, 240, 0.6);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    /* 隱形浮水印 */
+    .falo-invisible-watermark {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+      pointer-events: none;
+      user-select: none;
+      color: rgba(0, 0, 0, 0.001);
+      background: transparent;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- 隱形 DOM 浮水印 -->
+  <div class="falo-invisible-watermark" aria-hidden="true" data-owner="Falo x Force Cheng" data-date="2026-06-22">
+    Falo x Force Cheng 2026/6/22 Copyright Protected Watermark. Unauthorized copying is strictly prohibited.
+  </div>
+
+  <div class="watercolor-bg">
+    <div class="watercolor-blob blob-1"></div>
+    <div class="watercolor-blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <a href="index.html" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+      返回首頁
+    </a>
+
+    <article class="doc-card">
+      <header>
+        <h1>FALO Enterprise Deployment Assessment & Compatibility Matrix</h1>
+        <div class="subtitle">說明手冊與操作流程說明</div>
+      </header>
+
+      <p>這是一款專為售前顧問、系統架構師與項目經理（PM）設計的標準環境相容性評估工具。協助顧問在導入 AI 代理、自動化 Workflow、企業知識庫、RPA 等方案時，迅速核對客戶端的網路安全環境、白名單放行策略與 Gateway 架構相容性。</p>
+      
+      <p>本專案支援 <strong>100% 前端離線運行</strong>，並針對行動裝置進行了<strong>手機操作導向（Mobile-First RWD）</strong>的介面優化，非常適合顧問在企業訪談現場使用手機或平板進行快速勾選與連線檢測。</p>
+
+      <h2>⚡ 一鍵線上評估 (GitHub Pages)</h2>
+      <p>本工具已部署於 GitHub Pages，用戶可直接使用手機或電腦開啟網址：</p>
+      <ul>
+        <li><strong>現場測試</strong>：顧問可於會議或訪談現場，直接將 <code>demo.html</code> 連結傳給客戶的 IT 視窗。</li>
+        <li><strong>客戶自填</strong>：客戶在公司辦公室網路環境下點擊檢測，完畢後匯出報告並發回，免除繁瑣的手動白名單排查工作。</li>
+      </ul>
+
+      <h2>🌟 核心功能特點</h2>
+      <ul>
+        <li><strong>📱 行動端導向 UI (Mobile-First RWD)</strong>：底部固定 Dock 導覽分頁切換，自適應玻璃卡片流替代傳統寬表格，頂部橫向滑動分類過濾。</li>
+        <li><strong>⚡ 白名單網路連線檢測 (Reachability Engine)</strong>：利用 <code>mode: 'no-cors'</code> 跨來源探針，在 10 秒內跑完 50 個熱門網域的 TCP 握手檢測，實時掌握防火牆放行狀況。</li>
+        <li><strong>🛡️ 14+ 項資安指紋診斷 (Browser Fingerprinting)</strong>：離線收集 IP、AdBlock、GPU 晶片型號、媒體設備數、觸控支援、Canvas 渲染雜湊碼等，警示靜態網頁隱私曝露風險。</li>
+        <li><strong>🔄 數據雙向交流 (Data exchange loop)</strong>：支援匯出 UTF-8 BOM 格式 CSV、JSON 以及 HTML 加密報告。導出報告包含加密 payload，可直接拖回工具還原顧問評估數據。</li>
+      </ul>
+
+      <h2>📖 標準協作工作流程</h2>
+      <ol>
+        <li><strong>顧問發送網址</strong>：顧問將 <code>demo.html</code> 評估網址提供給客戶的資訊部門視窗。</li>
+        <li><strong>客戶現場盲測 (網路檢測頁面)</strong>：客戶在其內部網絡中打開網頁，輸入公司名稱後點擊「一鍵檢測連線」。測試完成後點擊「產生 HTML 報告」下載回寄給顧問。</li>
+        <li><strong>顧問載入還原 (相容矩陣頁面)</strong>：顧問在本地打開工具，點選載入客戶發回的 HTML 報告。系統會自動還原該網絡的測試數據。</li>
+        <li><strong>顧問補充與輸出</strong>：顧問針對受阻網域（顯示為受阻 ❌）在矩陣卡片中設定備選方案或白名單申請備忘，最終再次導出決策報告交付項目建置。</li>
+      </ol>
+
+      <footer>
+        <p>Falo x Force Cheng 2026/6/22 版權所有</p>
+      </footer>
+    </article>
+  </div>
+
+  <script>
+    // 在全域註冊唯讀浮水印以防版權剽竊
+    Object.defineProperty(window, '__FALO_WATERMARK__', {
+      value: "Falo x Force Cheng 2026/6/22",
+      writable: false,
+      configurable: false
+    });
+  </script>
+</body>
+</html>
