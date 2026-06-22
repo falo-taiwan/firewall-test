@@ -59,3 +59,54 @@
    * 工具會瞬間還原客戶在該網絡環境的測試結果。顧問可逐一核對受阻網域，展開技術細節，為客戶標記解決方案（如使用特定 Proxy、改用其他備選平台）並填寫專業顧問備忘。
 4. **輸出決策報告**：
    * 顧問最終再次導出正式版 HTML 報告，交給客戶 IT 部門進行防火牆配置。
+
+---
+
+## 🌐 本地開發與內網穿透 (轉 Port / Tunnel 服務)
+
+本系統為純前端靜態架構，通常直接雙擊網頁檔案或透過 GitHub Pages 即可運行。然而，若顧問在**本地修改代碼但尚未 Push 到 GitHub**，或者**需要將本地伺服器臨時展示給外網的客戶**時，可以使用轉 Port 工具進行「內網穿透」。
+
+本專案支援並推薦以下 9 種熱門的內網穿透工具。在啟動前，請先於本地專案目錄啟動一個網頁伺服器（例如使用 Python）：
+```bash
+python3 -m http.server 8000
+```
+
+隨後您可以選擇以下任一方案對外分享您的本地伺服器：
+
+### 1. Cloudflare Tunnel (cloudflared) -【企業首選，無訪客警告頁】
+完全免費且連線極度穩定。
+```bash
+# 安裝 (Mac/Homebrew)
+brew install cloudflared
+
+# 啟動臨時 Tunnel 並獲取專屬網址
+cloudflared tunnel --url http://localhost:8000
+```
+
+### 2. ngrok -【老牌穿透工具】
+成熟普及，但免費版在訪客開啟網址時會出現一次性 ngrok 警告頁面。
+```bash
+ngrok http 8000
+```
+
+### 3. Localtunnel -【免註冊、最快速】
+支援自訂二級域名，開箱即用。
+```bash
+npx localtunnel --port 8000 --subdomain falo-test
+```
+
+### 4. SSH 反向隧道 (serveo.net / localhost.run) -【本機零安裝黑科技】
+電腦只要有 `ssh` 指令即可運行，完全不需要安裝額外軟體：
+```bash
+# 方案 A：使用 Serveo.net
+ssh -R 80:localhost:8000 serveo.net
+
+# 方案 B：使用 Localhost.run
+ssh -R 80:localhost:8000 nob@localhost.run
+```
+
+### 5. VS Code 內建埠轉送 (Port Forwarding)
+若您使用 VS Code 開發，可以直接在下方的 **「Ports (連接埠)」** 面板中點選 **「Add Port」** 輸入 `8000`，並將存取權限設為 **Public (公開)**。
+
+### 6. 其他支援方案
+專案同時相容 **Bore** (`bore local 8000 --to bore.pub`)、**Tailscale Funnel**、**Pinggy** (`ssh -t a:localhost:8000+ssl@connect.pinggy.io`) 及企業自建的 **frp (Fast Reverse Proxy)**，詳情與資安原理請參見 [TEACHING_NOTES.md](file:///Users/force/Google_Antigravity/firewall_ip_website/TEACHING_NOTES.md#單元九顧問現場調試與內網穿透技術-port-forwarding--tunneling)。

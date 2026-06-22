@@ -14,7 +14,7 @@
   <title>FALO Enterprise Deployment Assessment - Gateway & Platform Compatibility Matrix</title>
   
   <!-- SEO 優化配置 (Standard Search Engine Optimization) -->
-  <meta name="description" content="FALO 企業環境部署相容性矩陣與網路檢測工具。由 Falo x Force Cheng 聯合設計，專為售前與架構師打造，可快速分析 50 種平台連通性與導入難度，支援離線 HTML 數據儲存與回載。">
+  <meta name="description" content="FALO 企業環境部署相容性矩陣與網路檢測工具。由 Falo x Force Cheng 聯合設計，專為售前與架構師打造，可快速分析 50+ 種平台連通性與導入難度，支援離線 HTML 數據儲存與回載。">
   <meta name="keywords" content="FALO, Force Cheng, 部署評估, 防火牆檢測, 網路連通性, 雲端相容性, 瀏覽器指紋, 資安教學, CORS繞過, DNS NXDOMAIN">
   <meta name="author" content="Falo x Force Cheng 2026/6/22">
   <meta name="robots" content="index, follow">
@@ -22,7 +22,7 @@
 
   <!-- OpenGraph 社群分享優化 -->
   <meta property="og:title" content="FALO Enterprise Deployment Assessment & Gateway Matrix">
-  <meta property="og:description" content="一鍵檢測企業防火牆連線，評估 50 種雲端與 AI 平台相容性。純前端、去中心化 HTML 交流技術。">
+  <meta property="og:description" content="一鍵檢測企業防火牆連線，評估 50+ 種雲端與 AI 平台相容性。純前端、去中心化 HTML 交流技術。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://falo-taiwan.github.io/firewall-test/demo.html">
   <meta property="og:locale" content="zh_TW">
@@ -46,7 +46,7 @@
     "license": "https://falo-taiwan.github.io/firewall-test/license",
     "featureList": [
       "Reachability check with no-cors fetch probe",
-      "50 platforms compatibility tracking grid",
+      "50+ platforms compatibility tracking grid",
       "Client security diagnostics & browser fingerprinting demonstration",
       "Decentralized state export and import via encoded HTML payload"
     ],
@@ -1006,6 +1006,22 @@
           <div class="progress-bar-fill" id="test-progress-fill"></div>
         </div>
         <p id="test-progress-status" style="font-size:0.75rem; font-weight:700; color:var(--primary-color); display:none; margin-top:0.25rem;"></p>
+        
+        <!-- 內網穿透與部分穿透提示盒 -->
+        <div class="tunnel-info-box" style="margin-top: 1rem; padding: 0.8rem; border-radius: 12px; background: rgba(43, 76, 111, 0.06); border: 1px solid rgba(43, 76, 111, 0.15); text-align: left; font-size: 0.76rem; color: var(--text-main); line-height: 1.45;">
+          <div style="font-weight: 800; color: var(--primary-color); display: flex; align-items: center; gap: 0.25rem; margin-bottom: 0.25rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 14px; height: 14px; stroke-width: 2.2px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 111.085 1.085l-.04.042m1.085-1.085a.75.75 0 00-1.085-1.085m1.085 1.085L12 18m0 0a.75.75 0 01-.75-.75M12 3a9 9 0 100 18 9 9 0 000-18z" />
+            </svg>
+            關於「內網穿透」的檢測限制說明
+          </div>
+          <p style="margin-bottom: 0.35rem;">部分穿透工具（如 <strong>Bore</strong>、<strong>Localhost.run</strong>）屬於特定連接埠或 Raw TCP 轉發服務，有別於其他提供完整 HTTPS Web 伺服器的工具。在瀏覽器純前端環境下檢測時：</p>
+          <ul style="padding-left: 1.1rem; margin-bottom: 0.35rem; display: flex; flex-direction: column; gap: 0.15rem;">
+            <li><strong>Bore (Rust)</strong>：因其伺服器端關閉了 HTTPS 443 連接埠，改用 HTTP 80 會受限於瀏覽器加密網頁的「混合內容限制（Mixed Content）」而顯示受阻。</li>
+            <li><strong>Localhost.run</strong>：可能因瀏覽器廣告防護插件（如 uBlock Origin）或瀏覽器安全防護阻擋了其高頻網釣特徵網域。</li>
+          </ul>
+          <p style="font-weight: 600; color: var(--secondary-color);">💡 當這兩者顯示「受阻 ❌」時，多為上述系統與瀏覽器機制限制，非必然是您的企業防火牆網路阻擋。</p>
+        </div>
       </div>
 
       <!-- 快速連線測試卡片清單 -->
@@ -1030,6 +1046,7 @@
           <div class="swiper-item" onclick="selectCategory('Static Hosting')">靜態託管</div>
           <div class="swiper-item" onclick="selectCategory('Collaboration')">協同合作</div>
           <div class="swiper-item" onclick="selectCategory('Database')">資料庫</div>
+          <div class="swiper-item" onclick="selectCategory('Tunneling')">內網穿透</div>
           <div class="swiper-item" onclick="selectCategory('Others')">其他平台</div>
         </div>
       </div>
@@ -1375,6 +1392,7 @@
       
       // === Microsoft ===
       { id: "microsoft-365", name: "Microsoft 365", vendor: "Microsoft", category: "Collaboration", testUrl: "https://login.microsoftonline.com", capabilities: { static: false, dynamic: false, webhook: false, oauth: true, proxy: false, domain: true, fixedIp: false }, difficulty: 3, recommendation: "B", status: "pending", notes: "", pingStatus: "untested" },
+      { id: "windows-365", name: "Windows 365 (Cloud PC)", vendor: "Microsoft", category: "Collaboration", testUrl: "https://windows365.microsoft.com", capabilities: { static: false, dynamic: false, webhook: false, oauth: true, proxy: false, domain: true, fixedIp: false }, difficulty: 3, recommendation: "B", status: "pending", notes: "微軟雲端電腦 (Cloud PC) 服務入口網域。", pingStatus: "untested" },
       { id: "sharepoint", name: "SharePoint", vendor: "Microsoft", category: "Collaboration", testUrl: "https://sharepoint.com", capabilities: { static: true, dynamic: false, webhook: true, oauth: true, proxy: false, domain: true, fixedIp: false }, difficulty: 3, recommendation: "B", status: "pending", notes: "", pingStatus: "untested" },
       { id: "onedrive", name: "OneDrive", vendor: "Microsoft", category: "Collaboration", testUrl: "https://onedrive.live.com", capabilities: { static: false, dynamic: false, webhook: false, oauth: true, proxy: false, domain: false, fixedIp: false }, difficulty: 3, recommendation: "C", status: "pending", notes: "", pingStatus: "untested" },
       { id: "teams", name: "Teams", vendor: "Microsoft", category: "Messaging", testUrl: "https://teams.microsoft.com", capabilities: { static: false, dynamic: false, webhook: true, oauth: true, proxy: false, domain: true, fixedIp: false }, difficulty: 3, recommendation: "B", status: "pending", notes: "", pingStatus: "untested" },
@@ -1448,7 +1466,18 @@
       { id: "aws-bedrock", name: "AWS Bedrock", vendor: "AWS", category: "AI Platform", testUrl: "https://bedrock.us-east-1.amazonaws.com", capabilities: { static: false, dynamic: true, webhook: false, oauth: true, proxy: true, domain: true, fixedIp: true }, difficulty: 3, recommendation: "A", status: "pending", notes: "", pingStatus: "untested" },
       
       { id: "openrouter", name: "OpenRouter", vendor: "OpenRouter", category: "AI Platform", testUrl: "https://openrouter.ai", capabilities: { static: false, dynamic: true, webhook: false, oauth: false, proxy: false, domain: true, fixedIp: false }, difficulty: 4, recommendation: "C", status: "pending", notes: "", pingStatus: "untested" },
-      { id: "huggingface", name: "Hugging Face API", vendor: "HuggingFace", category: "AI Platform", testUrl: "https://huggingface.co", capabilities: { static: false, dynamic: true, webhook: true, oauth: true, proxy: false, domain: true, fixedIp: false }, difficulty: 3, recommendation: "B", status: "pending", notes: "", pingStatus: "untested" }
+      { id: "huggingface", name: "Hugging Face API", vendor: "HuggingFace", category: "AI Platform", testUrl: "https://huggingface.co", capabilities: { static: false, dynamic: true, webhook: true, oauth: true, proxy: false, domain: true, fixedIp: false }, difficulty: 3, recommendation: "B", status: "pending", notes: "", pingStatus: "untested" },
+      
+      // === Tunneling & Port Forwarding (內網穿透) ===
+      { id: "cloudflare-tunnel", name: "Cloudflare Tunnel", vendor: "Cloudflare", category: "Tunneling", testUrl: "https://trycloudflare.com", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: true }, difficulty: 3, recommendation: "A", status: "pending", notes: "快速隨機 Tunnel 域名為 *.trycloudflare.com，完全免費且無警告頁面，最推薦。", pingStatus: "untested" },
+      { id: "ngrok", name: "ngrok", vendor: "ngrok", category: "Tunneling", testUrl: "https://ngrok.com", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 2, recommendation: "B", status: "pending", notes: "測試 ngrok.com 官網與連線端點。免費版會有防詐騙一次性警告頁面。", pingStatus: "untested" },
+      { id: "localtunnel", name: "Localtunnel", vendor: "Localtunnel", category: "Tunneling", testUrl: "https://localtunnel.me", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 1, recommendation: "B", status: "pending", notes: "免註冊的 Node.js 穿透服務。測試 localtunnel.me 伺服器連通性。", pingStatus: "untested" },
+      { id: "vscode-port-forwarding", name: "VS Code Port Forwarding", vendor: "Microsoft", category: "Tunneling", testUrl: "https://github.dev", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 1, recommendation: "B", status: "pending", notes: "VS Code 內建的埠轉送。測試 github.dev 網域連通性。", pingStatus: "untested" },
+      { id: "serveo", name: "Serveo (SSH)", vendor: "Serveo", category: "Tunneling", testUrl: "https://serveo.net", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 1, recommendation: "B", status: "pending", notes: "基於標準 SSH 的免安裝穿透工具。測試 serveo.net 伺服器連通性。", pingStatus: "untested" },
+      { id: "localhost-run", name: "Localhost.run (SSH)", vendor: "Localhost.run", category: "Tunneling", testUrl: "https://localhost.run", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 1, recommendation: "B", status: "pending", notes: "基於標準 SSH 的免安裝穿透工具。測試 localhost.run 伺服器連通性。", pingStatus: "untested" },
+      { id: "bore", name: "Bore (Rust)", vendor: "Bore", category: "Tunneling", testUrl: "http://bore.pub", capabilities: { static: false, dynamic: true, webhook: false, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 2, recommendation: "B", status: "pending", notes: "Rust 輕量級連接埠轉發工具。測試公共伺服器 bore.pub 連通性。", pingStatus: "untested" },
+      { id: "tailscale-funnel", name: "Tailscale Funnel", vendor: "Tailscale", category: "Tunneling", testUrl: "https://tailscale.com", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: true }, difficulty: 3, recommendation: "B", status: "pending", notes: "測試 tailscale.com 官網與 VPN 控制面網域連通性。", pingStatus: "untested" },
+      { id: "pinggy", name: "Pinggy (SSH)", vendor: "Pinggy", category: "Tunneling", testUrl: "https://pinggy.io", capabilities: { static: false, dynamic: true, webhook: true, oauth: false, proxy: true, domain: true, fixedIp: false }, difficulty: 1, recommendation: "B", status: "pending", notes: "基於 SSH 的 Tunnel 服務，支援 Web Debugger。測試 pinggy.io 連通性。", pingStatus: "untested" }
     ];
 
     // 全域評估狀態
@@ -1864,7 +1893,7 @@
     // ==========================================================================
     async function testHost(url) {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 秒超時
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 秒超時
       
       try {
         await fetch(url, {
